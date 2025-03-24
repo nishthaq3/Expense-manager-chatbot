@@ -1,1 +1,2 @@
 # Expense-manager-chatbot
+An AI driven chatbot which helps the user track his/her personal expense and helps in managing the cashflow into different catagories like entertainment, savings, investments etc.
