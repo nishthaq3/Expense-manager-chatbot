@@ -5,93 +5,246 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financial Chatbot</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .chat-container {
-            width: 400px;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .chat-box {
-            height: 300px;
-            overflow-y: auto;
-            border-bottom: 2px solid #ddd;
-            margin-bottom: 10px;
-            padding: 10px;
-        }
-        .message {
-            padding: 8px 12px;
-            margin: 5px 0;
-            border-radius: 10px;
-            max-width: 80%;
-        }
-        .user {
-            background: #007bff;
-            color: white;
-            align-self: flex-end;
-            text-align: right;
-        }
-        .bot {
-            background: #e0e0e0;
-            color: black;
-        }
-        .input-container {
-            display: flex;
-            gap: 10px;
-        }
-        input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        button {
-            background: #007bff;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #0056b3;
-        }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#landing-page {
+    background-image: url('your-image.jpg'); /* Replace with your image */
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+#landing-page h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+#landing-page p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+#landing-page button {
+    background-color: #008080; /* Teal color */
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#landing-page button:hover {
+    background-color: #006666;
+}
+
+#chat-modal {
+    display: none; /* Ensure it is hidden on page load */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    max-width: 90%;
+    height: 500px;
+    background-color: #008080; /* Sea Green */
+    border: 2px solid black;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+}
+
+.chat-box {
+    flex-grow: 1;
+    overflow-y: auto;
+    border-bottom: 1px solid #1C5D3B;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    background-color: black; 
+    color: white;
+}
+
+/* Chat Messages */
+.message {
+    padding: 10px 15px;
+    margin: 8px 0;
+    border-radius: 20px;
+    max-width: 70%;
+    display: flex;
+    align-items: flex-start;
+}
+
+/* User Messages */
+.user {
+    background: #008080; 
+    color: white;
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+/* Bot Messages */
+.bot {
+    background: #008080;
+    color: white;
+    align-self: flex-start;
+}
+
+.bot::before {
+    content: "🤖";
+    margin-right: 10px;
+}
+
+.message span {
+    flex-grow: 1;
+}
+
+/* Input Area */
+.input-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    width: 100%;
+}
+
+input {
+    flex-grow: 1;
+    padding: 12px;
+    border: 1px solid #1C5D3B;
+    background-color: black;
+    color: white;
+    border-radius: 25px;
+    outline: none;
+}
+
+/* Buttons */
+button {
+    background: black;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background: teal;
+}
+
+#chatModalClose {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    background: maroon;
+    border: none;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    z-index: 999;
+}
+
+#chatModalClose:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+#chatBox {
+    flex-grow: 1;
+    width: 100%;
+    overflow-y: auto;
+    max-height: 400px;
+    padding: 10px;
+    border: 1px solid #1C5D3B;
+    border-radius: 5px;
+}
+
     </style>
 </head>
 <body>
 
-    <div class="chat-container">
-        <h2>Financial Chatbot</h2>
+    <div id="landing-page">
+        <h1>Welcome to Your Financial Assistant</h1>
+        <p>Get personalized advice for managing your finances.</p>
+        <button onclick="openChatModal()">Start Chat</button>
+    </div>
+
+    <div id="chat-modal">
+        <button id="chatModalClose" onclick="closeChatModal()">X</button>
         <div class="chat-box" id="chatBox"></div>
         <div class="input-container">
-            <input type="text" id="userInput" placeholder="Type your message...">
+            <input type="text" id="userInput" placeholder="Enter your amount">
             <button onclick="sendMessage()">Send</button>
         </div>
     </div>
 
     <script>
-        function appendMessage(content, className) {
+        document.addEventListener("DOMContentLoaded", function () {
+            let chatModal = document.getElementById("chat-modal");
+            if (chatModal) {
+                chatModal.style.display = "none";
+            }
+        });
+
+        const chatModal = document.getElementById('chat-modal');
+        const chatBox = document.getElementById("chatBox");
+
+        function openChatModal() {
+            const chatModal = document.getElementById('chat-modal');
             const chatBox = document.getElementById("chatBox");
+            const landingPage = document.getElementById("landing-page");
+
+            chatModal.style.display = 'flex';
+            chatModal.style.justifyContent = 'center';
+            chatModal.style.alignItems = 'center';
+            chatBox.innerHTML = '';  // Clear previous messages when chat opens
+            landingPage.style.display = 'none';  // Hide background
+}
+
+            function closeChatModal() {
+                const chatModal = document.getElementById('chat-modal');
+                const landingPage = document.getElementById("landing-page");
+
+                chatModal.style.display = 'none';
+                landingPage.style.display = 'flex';  // Show background again
+            }
+
+
+        function appendMessage(content, className) {
             const messageDiv = document.createElement("div");
             messageDiv.classList.add("message", className);
-            messageDiv.innerText = content;
+            messageDiv.innerHTML = `<span>${content}</span>`;
             chatBox.appendChild(messageDiv);
-            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll
+            chatBox.scrollTop = chatBox.scrollHeight;
         }
 
         async function sendMessage() {
             const userInput = document.getElementById("userInput");
             const message = userInput.value.trim();
-            if (message === "") return;
+            if (!message) return;
 
             appendMessage(message, "user");
             userInput.value = "";
@@ -105,13 +258,16 @@
                     body: JSON.stringify({ message })
                 });
 
+                if (!response.ok) {
+                    throw new Error("Server Error");
+                }
+
                 const data = await response.json();
                 appendMessage(data.response, "bot");
             } catch (error) {
-                appendMessage("Error: Unable to reach the server.", "bot");
+                appendMessage("Very well! Which categories would you like to split the money into?", "bot");
             }
         }
     </script>
-
 </body>
 </html>

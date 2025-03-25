@@ -1,11 +1,3 @@
-from flask import Flask, request, jsonify
-import openai
-
-app = Flask(__name__)
-
-# Set your OpenAI API key here
-openai.api_key = "your_openai_api_key"
-
 from flask import Flask, request, jsonify, send_from_directory
 import openai
 import os
@@ -17,7 +9,9 @@ openai.api_key = "your_key"
 
 @app.route('/')
 def serve_frontend():
-    return send_from_directory('../frontend', 'index.html')
+    response = send_from_directory('../frontend', 'index.html')
+    response.headers['Content-Security-Policy'] = "connect-src 'self' http://127.0.0.1:5000" # Added CSP header
+    return response
 
 @app.route('/chat', methods=['POST'])
 def chat():
@@ -28,8 +22,10 @@ def chat():
 
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
-        messages=[{"role": "system", "content": "You are a financial assistant chatbot that helps users manage their money."},
-                  {"role": "user", "content": user_input}]
+        messages=[
+            {"role": "system", "content": "You are a financial assistant chatbot that helps users manage their money."},
+            {"role": "user", "content": user_input}
+        ]
     )
 
     chatbot_response = response["choices"][0]["message"]["content"]
@@ -38,7 +34,6 @@ def chat():
 @app.route('/')
 def home():
     return "Flask server is running. Use the '/chat' endpoint."
-
 
 if __name__ == '__main__':
     app.run(debug=True)
