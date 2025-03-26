@@ -10,7 +10,42 @@ body {
     margin: 0;
     padding: 0;
 }
+@keyframes slideDown {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
 
+        @keyframes slideLeft {
+            from {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Apply the animations */
+        #landing-page h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            animation: slideDown 1s ease-in-out;
+        }
+
+        #landing-page p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            animation: slideLeft 1s ease-in-out 0.5s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
 #landing-page {
     background-image: url('your-image.jpg'); /* Replace with your image */
     background-size: cover;
@@ -80,7 +115,16 @@ body {
     background-color: black; 
     color: white;
 }
+#chatbox {
+    transform: scale(0);
+    opacity: 0;
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+}
 
+#chatbox.active {
+    transform: scale(1);
+    opacity: 1;
+}
 /* Chat Messages */
 .message {
     padding: 10px 15px;
