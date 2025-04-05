@@ -9,9 +9,11 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(to bottom, #0F52BA, #ADD8E6); /* Sapphire Sky Theme: Dark Sapphire Blue to Light Blue */
+    background: linear-gradient(to bottom, #0F52BA, #ADD8E6); /* Sapphire Sky Theme: Default gradient */
     color: #1A1A1A; /* Midnight Black for contrast */
     overflow-x: hidden; /* Prevent horizontal scroll from compass */
+    scroll-behavior: smooth; /* Smooth scrolling */
+    transition: background 0.3s ease; /* Smooth background transition */
 }
 
 #landing-page {
@@ -45,15 +47,69 @@ body {
     font-size: 1.2em;
     margin-bottom: 30px;
     color: #1A1A1A; /* Midnight Black */
-    animation: typewriter 2s linear 1s forwards; /* Simplified to linear animation */
+    animation: typewriter 2s linear 0.4s forwards; /* Adjusted delay for sync */
     opacity: 0; /* Start hidden for animation */
     width: 100%; /* Ensure full width for animation */
     overflow: hidden; /* Hide overflow during animation */
     max-width: 600px; /* Limit width for neatness */
 }
 
+/* Feature Tiles */
+.tiles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px; /* Spacing between tiles */
+    max-width: 800px; /* Limit overall width */
+    padding: 0 20px; /* Add padding for smaller screens */
+    margin-bottom: 30px; /* Space before the buttons */
+}
+
+.tile {
+    background: rgba(255, 255, 255, 0.9); /* Slightly opaque white for theme harmony */
+    border: 2px solid #0F52BA; /* Sapphire Blue border */
+    border-radius: 10px;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeIn 1s ease-in-out 0.6s forwards; /* Delayed fade-in for sync */
+    opacity: 0; /* Start hidden */
+}
+
+.tile:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.tile h3 {
+    font-size: 1.1em;
+    color: #0F52BA; /* Sapphire Blue for title */
+    margin: 0 0 5px;
+    font-weight: bold;
+}
+
+.tile p {
+    font-size: 0.9em;
+    color: #1A1A1A; /* Midnight Black for readability */
+    margin: 0;
+}
+
+/* Buttons Container */
+.buttons {
+    display: flex;
+    gap: 15px; /* Space between buttons */
+    margin-bottom: 20px; /* Space below buttons */
+}
+
 #landing-page button {
-    background-color: #0F52BA; /* Sapphire Blue, matching the theme */
+    background-color: #4682B4; /* Steel Blue for Start Chat */
     color: #E8ECEF; /* Pale Gray */
     padding: 15px 30px;
     border: none;
@@ -61,10 +117,244 @@ body {
     font-size: 1.2em;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    animation: fadeIn 1s ease-in-out 0.8s forwards; /* Delayed fade-in for sync */
+    opacity: 0; /* Start hidden */
 }
 
 #landing-page button:hover {
-    background-color: #C0C0C0; /* Silver */
+    background-color: #C0C0C0; /* Silver, maintaining contrast */
+}
+
+#landing-page button:focus {
+    outline: 2px solid #ADD8E6; /* Light Blue outline for accessibility */
+    outline-offset: 2px;
+}
+
+#vision-button {
+    background-color: #87CEEB; /* Sky Blue for Our Vision */
+    color: #1A1A1A; /* Midnight Black for contrast */
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    animation: fadeIn 1s ease-in-out 0.8s forwards; /* Delayed fade-in for sync */
+    opacity: 0; /* Start hidden */
+}
+
+#vision-button:hover {
+    background-color: #ADD8E6; /* Light Blue on hover */
+}
+
+#vision-button:focus {
+    outline: 2px solid #0F52BA; /* Sapphire Blue outline for accessibility */
+}
+
+/* Vision Section */
+#vision-section {
+    display: none; /* Hidden by default */
+    padding: 50px 20px;
+    background: rgba(255, 255, 255, 0.85); /* Semi-transparent white */
+    border-top: 2px solid #0F52BA; /* Sapphire Blue border */
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+    animation: slideUp 1s ease-in-out forwards; /* Slide up when shown */
+}
+
+#vision-section.visible {
+    display: block;
+}
+
+#vision-section h2 {
+    font-size: 2em;
+    color: #0F52BA; /* Sapphire Blue */
+    margin-bottom: 20px;
+}
+
+#vision-section p {
+    font-size: 1.1em;
+    color: #1A1A1A; /* Midnight Black */
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto 20px;
+}
+
+#back-to-top {
+    background-color: #87CEEB; /* Sky Blue */
+    color: #1A1A1A; /* Midnight Black */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+#back-to-top:hover {
+    background-color: #ADD8E6; /* Light Blue on hover */
+}
+
+/* Chat Modal Background Fix */
+.chat-active body {
+    background: linear-gradient(to bottom, #BBDEFB, #E1F5FE) !important; /* Pastel blue gradient */
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
+
+.chat-active #landing-page,
+.chat-active #vision-section {
+    display: none; /* Hide all landing page and vision content */
+}
+
+.chat-active #chat-modal {
+    display: flex; /* Ensure chat modal is visible */
+}
+
+/* Chat Modal Shape and Design (Large Rectangle with Curved Corners) */
+#chat-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) translateY(-100%); /* Center and offset for animation */
+    width: 70%; /* Wider to cover more screen */
+    height: 80%; /* Taller to cover more screen */
+    background-color: #FFFFFF; /* Steel Blue to match theme */
+    border: 2px solid #0F52BA; /* Sapphire Blue border */
+    border-radius: 10px; /* Curved corners */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+#chat-modal.visible {
+    transform: translate(-50%, -50%) translateY(0); /* Slide down to center */
+    opacity: 1;
+}
+
+/* Chat Box with White Background */
+.chat-box {
+    flex-grow: 1;
+    overflow-y: auto;
+    border-bottom: 1px solid #C0C0C0; /* Silver border */
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF !important; /* White background */
+    color: #1A1A1A; /* Midnight Black text */
+    border-radius: 5px; /* Slight curve to match modal */
+    margin: 10px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Slight inner shadow */
+    width: 100%; /* Ensure it fills the modal */
+    height: auto; /* Allow it to adjust based on content */
+}
+
+.message {
+    padding: 10px 15px;
+    margin: 8px 0;
+    border-radius: 5px; /* Curved corners for messages */
+    max-width: 80%; /* Adjusted for better layout */
+    display: flex;
+    align-items: flex-start;
+}
+
+.user {
+    background: #ADD8E6; /* Light Blue for user messages */
+    color: #1A1A1A; /* Midnight Black */
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+.bot {
+    background: #0F52BA; /* Dark Blue for chatbot messages */
+    color: #FFFFFF; /* White text for contrast on dark background */
+    align-self: flex-start;
+}
+
+.bot::before {
+    content: "🤖";
+    margin-right: 10px;
+}
+
+.message span {
+    flex-grow: 1;
+}
+
+.input-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    width: 100%;
+}
+
+input {
+    flex-grow: 1;
+    padding: 12px;
+    border: 1px solid #C0C0C0; /* Silver */
+    background-color: #1A1A1A; /* Midnight Black */
+    color: #E8ECEF; /* Pale Gray */
+    border-radius: 5px; /* Curved input */
+    outline: none;
+}
+
+button {
+    background: #1A1A1A; /* Midnight Black */
+    color: #E8ECEF; /* Pale Gray */
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px; /* Curved button */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background: #C0C0C0; /* Silver */
+}
+
+#chatModalClose {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    background: #C0C0C0; /* Silver */
+    border: none;
+    border-radius: 5px; /* Curved close button */
+    font-size: 14px;
+    font-weight: bold;
+    color: #1A1A1A; /* Midnight Black */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    z-index: 999;
+}
+
+#chatModalClose:hover {
+    background: #ADD8E6; /* Light Blue */
+}
+
+#chatBox {
+    flex-grow: 1;
+    width: 100%;
+    overflow-y: auto;
+    max-height: 90%; /* Adjusted for taller modal */
+    padding: 10px;
+    border: 1px solid #C0C0C0; /* Silver border */
+    border-radius: 5px; /* Curved chat box */
+    background-color: #FFFFFF !important; /* White background */
 }
 
 /* Compass Animation */
@@ -94,139 +384,13 @@ body {
     to { width: 100%; opacity: 1; } /* Smooth fade-in with full width */
 }
 
-#chat-modal {
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%) translateY(-100%);
-    width: 400px;
-    max-width: 90%;
-    height: 500px;
-    background-color: #0F52BA; /* Sapphire Blue */
-    border: 2px solid #C0C0C0; /* Silver */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1000;
-    opacity: 0;
-    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+@keyframes fadeIn {
+    to { opacity: 1; }
 }
 
-#chat-modal.visible {
-    transform: translateX(-50%) translateY(50px);
-    opacity: 1;
-}
-
-.chat-box {
-    flex-grow: 1;
-    overflow-y: auto;
-    border-bottom: 1px solid #C0C0C0; /* Silver */
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    background-color: #1A1A1A; /* Midnight Black */
-    color: #E8ECEF; /* Pale Gray */
-}
-
-.message {
-    padding: 10px 15px;
-    margin: 8px 0;
-    border-radius: 20px;
-    max-width: 70%;
-    display: flex;
-    align-items: flex-start;
-}
-
-.user {
-    background: #C0C0C0; /* Silver */
-    color: #1A1A1A; /* Midnight Black */
-    align-self: flex-end;
-    flex-direction: row-reverse;
-}
-
-.bot {
-    background: #0F52BA; /* Sapphire Blue */
-    color: #E8ECEF; /* Pale Gray */
-    align-self: flex-start;
-}
-
-.bot::before {
-    content: "🤖";
-    margin-right: 10px;
-}
-
-.message span {
-    flex-grow: 1;
-}
-
-.input-container {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-    width: 100%;
-}
-
-input {
-    flex-grow: 1;
-    padding: 12px;
-    border: 1px solid #C0C0C0; /* Silver */
-    background-color: #1A1A1A; /* Midnight Black */
-    color: #E8ECEF; /* Pale Gray */
-    border-radius: 25px;
-    outline: none;
-}
-
-button {
-    background: #1A1A1A; /* Midnight Black */
-    color: #E8ECEF; /* Pale Gray */
-    border: none;
-    padding: 12px 20px;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background: #C0C0C0; /* Silver */
-}
-
-#chatModalClose {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    width: 30px;
-    height: 30px;
-    background: #C0C0C0; /* Silver */
-    border: none;
-    border-radius: 50%;
-    font-size: 14px;
-    font-weight: bold;
-    color: #1A1A1A; /* Midnight Black */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    z-index: 999;
-}
-
-#chatModalClose:hover {
-    background: #ADD8E6; /* Light Blue */
-}
-
-#chatBox {
-    flex-grow: 1;
-    width: 100%;
-    overflow-y: auto;
-    max-height: 400px;
-    padding: 10px;
-    border: 1px solid #C0C0C0; /* Silver */
-    border-radius: 5px;
-    background-color: #1A1A1A; /* Midnight Black */
+@keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
     </style>
 </head>
@@ -235,8 +399,35 @@ button:hover {
         <div class="greeting" id="greeting"></div>
         <h1>Welcome to PursePilot</h1>
         <p class="tagline">Your financial compass, navigating your money matters with ease.</p>
-        <button onclick="openChatModal()">Start Chat</button>
+        <div class="tiles">
+            <div class="tile">
+                <h3>Budget Planner</h3>
+                <p>Create your monthly budget.</p>
+            </div>
+            <div class="tile">
+                <h3>Savings Tracker</h3>
+                <p>Monitor your savings goals.</p>
+            </div>
+            <div class="tile">
+                <h3>Expense Split</h3>
+                <p>Divide expenses easily.</p>
+            </div>
+            <div class="tile">
+                <h3>Financial Tips</h3>
+                <p>Get personalized advice.</p>
+            </div>
+        </div>
+        <div class="buttons">
+            <button onclick="openChatModal()">Start Chat</button>
+            <button id="vision-button" onclick="scrollToVision()">Our Vision</button>
+        </div>
         <div class="compass"></div> <!-- Compass element -->
+    </div>
+
+    <div id="vision-section">
+        <h2>Our Vision</h2>
+        <p>At PursePilot, we aim to empower individuals to take control of their financial future with ease and confidence. Our vision is to create a smart, intuitive chatbot that simplifies budgeting, tracks savings, splits expenses, and provides personalized financial guidance. We strive to be the ultimate financial compass, helping you navigate your money matters under the clear Sapphire Sky, ensuring clarity and prosperity for all.</p>
+        <button id="back-to-top" onclick="scrollToTop()">Back to Top</button>
     </div>
 
     <div id="chat-modal">
@@ -249,6 +440,7 @@ button:hover {
     </div>
 
     <script>
+        const body = document.body; // Ensure body is defined globally
         document.addEventListener("DOMContentLoaded", function () {
             const greeting = document.getElementById("greeting");
             const now = new Date();
@@ -265,16 +457,31 @@ button:hover {
         const chatModal = document.getElementById('chat-modal');
         const chatBox = document.getElementById("chatBox");
         const landingPage = document.getElementById("landing-page");
+        const visionSection = document.getElementById('vision-section');
 
         function openChatModal() {
             chatModal.classList.add('visible');
-            chatBox.innerHTML = '';
+            body.classList.add('chat-active');
             landingPage.style.display = 'none';
+            visionSection.style.display = 'none';
+            chatBox.innerHTML = '';
         }
 
         function closeChatModal() {
             chatModal.classList.remove('visible');
+            body.classList.remove('chat-active');
             landingPage.style.display = 'flex';
+            visionSection.style.display = 'none';
+        }
+
+        function scrollToVision() {
+            visionSection.classList.add('visible');
+            visionSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToTop() {
+            document.getElementById('landing-page').scrollIntoView({ behavior: 'smooth' });
+            visionSection.classList.remove('visible');
         }
 
         function appendMessage(content, className) {
