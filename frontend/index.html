@@ -3,49 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Chatbot</title>
+    <title>PursePilot</title>
     <style>
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
+    background: linear-gradient(to bottom, #0F52BA, #ADD8E6); /* Sapphire Sky Theme: Dark Sapphire Blue to Light Blue */
+    color: #1A1A1A; /* Midnight Black for contrast */
+    overflow-x: hidden; /* Prevent horizontal scroll from compass */
 }
-@keyframes slideDown {
-            from {
-                transform: translateY(-100px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
 
-        @keyframes slideLeft {
-            from {
-                transform: translateX(-100px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        /* Apply the animations */
-        #landing-page h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-            animation: slideDown 1s ease-in-out;
-        }
-
-        #landing-page p {
-            font-size: 1.2em;
-            margin-bottom: 30px;
-            animation: slideLeft 1s ease-in-out 0.5s;
-            opacity: 0;
-            animation-fill-mode: forwards;
-        }
 #landing-page {
     background-image: url('your-image.jpg'); /* Replace with your image */
     background-size: cover;
@@ -56,22 +24,37 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: white;
+    position: relative; /* For compass positioning */
+}
+
+#landing-page .greeting {
+    font-size: 0.9em;
+    margin-bottom: 10px;
+    color: #ADD8E6; /* Light Blue, matching the theme */
+    animation: slideDown 1s ease-in-out;
 }
 
 #landing-page h1 {
     font-size: 3em;
     margin-bottom: 20px;
+    color: #1A1A1A; /* Midnight Black */
+    animation: slideDown 1s ease-in-out 0.2s;
 }
 
-#landing-page p {
+#landing-page p.tagline {
     font-size: 1.2em;
     margin-bottom: 30px;
+    color: #1A1A1A; /* Midnight Black */
+    animation: typewriter 2s linear 1s forwards; /* Simplified to linear animation */
+    opacity: 0; /* Start hidden for animation */
+    width: 100%; /* Ensure full width for animation */
+    overflow: hidden; /* Hide overflow during animation */
+    max-width: 600px; /* Limit width for neatness */
 }
 
 #landing-page button {
-    background-color: #008080; /* Teal color */
-    color: white;
+    background-color: #0F52BA; /* Sapphire Blue, matching the theme */
+    color: #E8ECEF; /* Pale Gray */
     padding: 15px 30px;
     border: none;
     border-radius: 5px;
@@ -81,20 +64,46 @@ body {
 }
 
 #landing-page button:hover {
-    background-color: #006666;
+    background-color: #C0C0C0; /* Silver */
+}
+
+/* Compass Animation */
+.compass {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ADD8E6"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>') no-repeat center;
+    background-size: contain;
+    animation: rotate 4s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes typewriter {
+    from { width: 0; opacity: 0; }
+    to { width: 100%; opacity: 1; } /* Smooth fade-in with full width */
 }
 
 #chat-modal {
-    display: none; /* Ensure it is hidden on page load */
     position: fixed;
-    top: 50%;
+    top: 0;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%) translateY(-100%);
     width: 400px;
     max-width: 90%;
     height: 500px;
-    background-color: #008080; /* Sea Green */
-    border: 2px solid black;
+    background-color: #0F52BA; /* Sapphire Blue */
+    border: 2px solid #C0C0C0; /* Silver */
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     padding: 20px;
@@ -103,29 +112,26 @@ body {
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
+    opacity: 0;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+#chat-modal.visible {
+    transform: translateX(-50%) translateY(50px);
+    opacity: 1;
 }
 
 .chat-box {
     flex-grow: 1;
     overflow-y: auto;
-    border-bottom: 1px solid #1C5D3B;
+    border-bottom: 1px solid #C0C0C0; /* Silver */
     padding: 15px;
     display: flex;
     flex-direction: column;
-    background-color: black; 
-    color: white;
-}
-#chatbox {
-    transform: scale(0);
-    opacity: 0;
-    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+    background-color: #1A1A1A; /* Midnight Black */
+    color: #E8ECEF; /* Pale Gray */
 }
 
-#chatbox.active {
-    transform: scale(1);
-    opacity: 1;
-}
-/* Chat Messages */
 .message {
     padding: 10px 15px;
     margin: 8px 0;
@@ -135,18 +141,16 @@ body {
     align-items: flex-start;
 }
 
-/* User Messages */
 .user {
-    background: #008080; 
-    color: white;
+    background: #C0C0C0; /* Silver */
+    color: #1A1A1A; /* Midnight Black */
     align-self: flex-end;
     flex-direction: row-reverse;
 }
 
-/* Bot Messages */
 .bot {
-    background: #008080;
-    color: white;
+    background: #0F52BA; /* Sapphire Blue */
+    color: #E8ECEF; /* Pale Gray */
     align-self: flex-start;
 }
 
@@ -159,7 +163,6 @@ body {
     flex-grow: 1;
 }
 
-/* Input Area */
 .input-container {
     display: flex;
     gap: 10px;
@@ -170,17 +173,16 @@ body {
 input {
     flex-grow: 1;
     padding: 12px;
-    border: 1px solid #1C5D3B;
-    background-color: black;
-    color: white;
+    border: 1px solid #C0C0C0; /* Silver */
+    background-color: #1A1A1A; /* Midnight Black */
+    color: #E8ECEF; /* Pale Gray */
     border-radius: 25px;
     outline: none;
 }
 
-/* Buttons */
 button {
-    background: black;
-    color: white;
+    background: #1A1A1A; /* Midnight Black */
+    color: #E8ECEF; /* Pale Gray */
     border: none;
     padding: 12px 20px;
     border-radius: 25px;
@@ -189,7 +191,7 @@ button {
 }
 
 button:hover {
-    background: teal;
+    background: #C0C0C0; /* Silver */
 }
 
 #chatModalClose {
@@ -198,12 +200,12 @@ button:hover {
     right: 5px;
     width: 30px;
     height: 30px;
-    background: maroon;
+    background: #C0C0C0; /* Silver */
     border: none;
     border-radius: 50%;
     font-size: 14px;
     font-weight: bold;
-    color: black;
+    color: #1A1A1A; /* Midnight Black */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -213,7 +215,7 @@ button:hover {
 }
 
 #chatModalClose:hover {
-    background: rgba(255, 255, 255, 0.4);
+    background: #ADD8E6; /* Light Blue */
 }
 
 #chatBox {
@@ -222,18 +224,19 @@ button:hover {
     overflow-y: auto;
     max-height: 400px;
     padding: 10px;
-    border: 1px solid #1C5D3B;
+    border: 1px solid #C0C0C0; /* Silver */
     border-radius: 5px;
+    background-color: #1A1A1A; /* Midnight Black */
 }
-
     </style>
 </head>
 <body>
-
     <div id="landing-page">
-        <h1>Welcome to Your Financial Assistant</h1>
-        <p>Get personalized advice for managing your finances.</p>
+        <div class="greeting" id="greeting"></div>
+        <h1>Welcome to PursePilot</h1>
+        <p class="tagline">Your financial compass, navigating your money matters with ease.</p>
         <button onclick="openChatModal()">Start Chat</button>
+        <div class="compass"></div> <!-- Compass element -->
     </div>
 
     <div id="chat-modal">
@@ -247,35 +250,32 @@ button:hover {
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            let chatModal = document.getElementById("chat-modal");
-            if (chatModal) {
-                chatModal.style.display = "none";
+            const greeting = document.getElementById("greeting");
+            const now = new Date();
+            const hour = now.getHours();
+            let greetingText = "Good ";
+            if (hour < 17) {
+                greetingText += (hour < 12 ? "morning" : "afternoon") + " 🌞";
+            } else {
+                greetingText += "evening 🌙";
             }
+            greeting.textContent = greetingText + "!";
         });
 
         const chatModal = document.getElementById('chat-modal');
         const chatBox = document.getElementById("chatBox");
+        const landingPage = document.getElementById("landing-page");
 
         function openChatModal() {
-            const chatModal = document.getElementById('chat-modal');
-            const chatBox = document.getElementById("chatBox");
-            const landingPage = document.getElementById("landing-page");
+            chatModal.classList.add('visible');
+            chatBox.innerHTML = '';
+            landingPage.style.display = 'none';
+        }
 
-            chatModal.style.display = 'flex';
-            chatModal.style.justifyContent = 'center';
-            chatModal.style.alignItems = 'center';
-            chatBox.innerHTML = '';  // Clear previous messages when chat opens
-            landingPage.style.display = 'none';  // Hide background
-}
-
-            function closeChatModal() {
-                const chatModal = document.getElementById('chat-modal');
-                const landingPage = document.getElementById("landing-page");
-
-                chatModal.style.display = 'none';
-                landingPage.style.display = 'flex';  // Show background again
-            }
-
+        function closeChatModal() {
+            chatModal.classList.remove('visible');
+            landingPage.style.display = 'flex';
+        }
 
         function appendMessage(content, className) {
             const messageDiv = document.createElement("div");
