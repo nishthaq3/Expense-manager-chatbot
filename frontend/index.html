@@ -201,7 +201,7 @@ body {
 
 /* Chat Modal Background Fix */
 .chat-active body {
-    background: linear-gradient(to bottom, #BBDEFB, #E1F5FE) !important; /* Pastel blue gradient */
+    background: #F0F8FF !important; /* Very light pastel blue (Alice Blue) */
     background-size: cover !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
@@ -251,8 +251,8 @@ body {
     padding: 15px;
     display: flex;
     flex-direction: column;
-    background-color: #FFFFFF !important; /* White background */
-    color: #1A1A1A; /* Midnight Black text */
+    background-color: #FFFFFF !important; /* White background enforced */
+    color: #87CEEB; /* Midnight Black text */
     border-radius: 5px; /* Slight curve to match modal */
     margin: 10px;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Slight inner shadow */
@@ -270,7 +270,7 @@ body {
 }
 
 .user {
-    background: #ADD8E6; /* Light Blue for user messages */
+    background: #0F52BA; /* Light Blue for user messages */
     color: #1A1A1A; /* Midnight Black */
     align-self: flex-end;
     flex-direction: row-reverse;
@@ -302,14 +302,14 @@ input {
     flex-grow: 1;
     padding: 12px;
     border: 1px solid #C0C0C0; /* Silver */
-    background-color: #1A1A1A; /* Midnight Black */
-    color: #E8ECEF; /* Pale Gray */
+    background-color: #4a7ada; /* Midnight Black */
+    color: white; /* Pale Gray */
     border-radius: 5px; /* Curved input */
     outline: none;
 }
 
 button {
-    background: #1A1A1A; /* Midnight Black */
+    background: #4a7ada; /* Midnight Black */
     color: #E8ECEF; /* Pale Gray */
     border: none;
     padding: 12px 20px;
@@ -354,9 +354,9 @@ button:hover {
     padding: 10px;
     border: 1px solid #C0C0C0; /* Silver border */
     border-radius: 5px; /* Curved chat box */
-    background-color: #FFFFFF !important; /* White background */
+    background-color: #FFFFFF !important; /* Force white background */
+    color: #1A1A1A; /* Midnight Black text */
 }
-
 /* Compass Animation */
 .compass {
     position: absolute;
